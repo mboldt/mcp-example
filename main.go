@@ -61,12 +61,16 @@ func (c gitHubClient) repositoryMetadata(ctx context.Context, req *mcp.CallToolR
 
 	body, err := c.fetcher.fetch(ctx, input.Owner, input.Repository)
 	if err != nil {
+		// TODO understand if / how mcp.CallToolResult should be populated
+		// TODO research if there are common error handling patterns we should follow
 		return nil, output{}, err
 	}
 
 	var output output
+	// Probably warrants a translation, but this works for now
 	json.Unmarshal(body, &output)
 
+	// TODO understand if / how mcp.CallToolResult should be populated
 	return nil, output, nil
 }
 
